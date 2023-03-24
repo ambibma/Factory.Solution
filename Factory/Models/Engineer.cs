@@ -1,3 +1,7 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
 namespace Factory.Models
 {
   public class Engineer
@@ -7,7 +11,7 @@ namespace Factory.Models
     //public DateTime HireDate{get;set;}
     public string Name {get;set;}
 
-    public List<MachineEngineer> JoinEntities{get;set;}
+    public List<EngineerMachine> JoinEntities{get;set;}
 
   }
 }
