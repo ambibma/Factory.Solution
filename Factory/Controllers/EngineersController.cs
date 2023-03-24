@@ -21,5 +21,20 @@ namespace Factory.Controllers
                                 .ToList();
       return View(model);
     }
+    public ActionResult Create()
+    {
+      return View();
+    }
+    
+    [HttpPost]
+     public ActionResult Create(Engineer engineer)
+     {
+      //May need to add Machines as list to Eng in order to handle creating Eng withouth mach.
+        _db.Engineers.Add(engineer);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
+     }
+
+    
   }
 }
