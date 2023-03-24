@@ -1,0 +1,55 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Factory.Models
+@model Factory.Models.Engineer
+
+<h2>Engineer Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>  
+@* <h3>@Html.DisplayNameFor(model => model.HireDate): @Html.DisplayFor(model => model.HireDate)</h3> *@
+
+@if(@Model.JoinEntities.Count == 0)
+{
+  <p>This doctor does not have any Machines yet!</p>
+}
+else
+{
+  <h4 id=machine-header>Click here to view machines:</h4>
+
+  <ul id=full-machine-list class=hidden>
+    @foreach(EngineerMachine join in Model.JoinEntities)
+    {
+      <li id=machinelist-@join.MachineId class=Machine>Machine: @join.Machine.Name
+      @using (Html.BeginForm("DeleteJoin", "Engineers"))
+      {
+        @Html.Hidden("joinId", @join.EngineerMachineId)
+        <input type="submit" value="Delete"/>
+      }
+      <div id=machinedetails-@join.MachineId class="hidden">
+        @* <p> info here</p> *@
+      </div>
+      </li>
+    }
+  </ul>
+}
+
+<p>@Html.ActionLink("Back to Engineers", "Index")</p>
+<p>@Html.ActionLink("Edit Engineer", "Edit", new { id = Model.EngineerId })</p>
+<p>@Html.ActionLink("Add a Machine", "AddMachine", new { id = Model.EngineerId })</p>
+<p>@Html.ActionLink("Delete Engineer", "Delete", new { id = Model.EngineerId })</p>
+
+@* <script type="text/javascript">
+  document.getElementById("engineer-header").addEventListener("click", e => {
+    document.getElementById("full-machine-list").classList.toggle("hidden");
+  });
+
+  document.querySelectorAll(".machine").forEach(element => {
+    element.addEventListener("click", e => {
+      let id = element.id.split('-')[1];
+      document.getElementById("machinedetails-" + id).classList.toggle("hidden");
+    });
+  });
+  
+  </script> *@
