@@ -29,10 +29,17 @@ namespace Factory.Controllers
     [HttpPost]
      public ActionResult Create(Engineer engineer)
      {
-      //May need to add Machines as list to Eng in order to handle creating Eng withouth mach.
+      if (!ModelState.IsValid)
+      {
+          ViewBag.EngineerId = new SelectList(_db.Engineers, "EngineerId", "Name");
+          return View(engineer);
+      }
+      else
+      {
         _db.Engineers.Add(engineer);
         _db.SaveChanges();
         return RedirectToAction("Index");
+     }
      }
 
      public ActionResult Details(int id)

@@ -32,9 +32,17 @@ namespace Factory.Controllers
 
     public ActionResult Create(Machine machine)
     {
+      if (!ModelState.IsValid)
+      {
+          ViewBag.MachineId = new SelectList(_db.Machines, "MachineId", "Name");
+          return View(machine);
+      }
+      else
+      {
       _db.Machines.Add(machine);
       _db.SaveChanges();
       return RedirectToAction("Index");
+      }
     }   
     
     public ActionResult Details(int id)
